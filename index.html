@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Index of /david-zambrano</title>
+<title>David Zambrano — QA Automation Engineer</title>
 <meta name="description" content="David Zambrano, QA Automation Engineer in Barcelona. Test automation portfolio: Playwright, Python, pytest, CI/CD pipelines, and live Allure reports.">
 <meta name="theme-color" content="#0c0d0c">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c0d0c'/%3E%3Ctext x='6' y='22' font-family='ui-monospace,monospace' font-size='16' fill='%234ec9b0'%3E%3E_%3C/text%3E%3C/svg%3E">
@@ -41,9 +41,9 @@
   }
 
   body {
-    max-width: 720px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 48px 24px 80px;
+    padding: 40px 24px 80px;
   }
 
   a { color: var(--accent); text-decoration: none; }
@@ -55,13 +55,123 @@
 
   ::selection { background: var(--accent-dim); color: #fff; }
 
-  /* ---------- HERO / TERMINAL ---------- */
+  /* ---------- FILE LINKS ---------- */
+
+  .nav-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+
+  .nav-links a { color: var(--accent); }
+  .nav-links a:hover { text-decoration: underline; }
+
+  .nav-links .copy-toast {
+    color: var(--accent);
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .nav-links .copy-toast.show { opacity: 1; }
+
+  /* ---------- CONTENT SECTIONS ---------- */
+
+  .reveal-target {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal-target.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  section {
+    margin-top: 32px;
+  }
+
+  #projects .path {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 0 0 4px;
+  }
+  #projects .path a { color: var(--muted); }
+  #projects .path a:hover { color: var(--accent); }
+
+  section h2.index-title {
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  #projects hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 0 0 14px;
+  }
+
+  /* ---------- PROJECTS TABLE ---------- */
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    text-align: left;
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--line);
+  }
+
+  td {
+    padding: 9px 8px;
+    vertical-align: top;
+  }
+
+  td.name a { color: var(--text); }
+  td.name a:hover { color: var(--accent); }
+  tr.up a { color: var(--text); }
+  tr.up a:hover { color: var(--accent); }
+  td.name .tag {
+    color: var(--muted);
+    display: block;
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  td.stat-cell { color: var(--muted); white-space: nowrap; }
+  td.report-cell { white-space: nowrap; }
+
+  /* ---------- TERMINAL (secondary, below the fold) ---------- */
+
+  .term-section.hero {
+    margin-bottom: 36px;
+  }
+
+  .term-section .hint {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 0 0 12px;
+  }
 
   .term {
     border: 1px solid var(--line);
     background: var(--bg-alt);
     border-radius: 4px;
-    margin-bottom: 40px;
     overflow: hidden;
   }
 
@@ -82,16 +192,11 @@
     background: #3a3c36;
     transition: background 0.15s ease, box-shadow 0.15s ease;
   }
-
   .dot::before {
     content: '';
     position: absolute;
-    top: -6px;
-    left: -6px;
-    right: -6px;
-    bottom: -6px;
+    top: -6px; left: -6px; right: -6px; bottom: -6px;
   }
-
   .dot:hover {
     background: var(--accent);
     box-shadow: 0 0 6px 0 var(--accent);
@@ -104,7 +209,7 @@
   }
 
   .term-body {
-    padding: 20px 20px 24px;
+    padding: 16px 18px 20px;
     white-space: pre-wrap;
   }
 
@@ -122,22 +227,9 @@
     animation: blink 1s steps(1) infinite;
     margin-left: 2px;
   }
+  @keyframes blink { 50% { opacity: 0; } }
 
-  .reveal-target {
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .reveal-target.visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  .live-row {
-    display: flex;
-    align-items: center;
-  }
-
+  .live-row { display: flex; align-items: center; }
   .term-input {
     flex: 1;
     min-width: 40px;
@@ -150,123 +242,12 @@
     padding: 0;
     margin: 0;
   }
-
   .term-input.pw {
     -webkit-text-security: disc;
     text-security: disc;
   }
 
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-
-  /* ---------- BREADCRUMB / HEADER ---------- */
-
-  .path {
-    color: var(--muted);
-    margin: 0 0 4px;
-    font-size: 13px;
-  }
-  .path a { color: var(--muted); }
-  .path a:hover { color: var(--accent); }
-
-  h1 {
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0 0 20px;
-    color: var(--text);
-  }
-
-  hr {
-    border: none;
-    border-top: 1px solid var(--line);
-    margin: 0 0 12px;
-  }
-
-  /* ---------- DIRECTORY TABLE ---------- */
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  thead th {
-    text-align: left;
-    color: var(--muted);
-    font-weight: 400;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    padding: 6px 8px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  tbody tr {
-    border-bottom: 1px solid var(--line);
-    transition: background 0.1s ease;
-  }
-
-  tbody tr:hover {
-    background: var(--bg-alt);
-  }
-
-  td {
-    padding: 9px 8px;
-    vertical-align: top;
-  }
-
-  td.name a {
-    color: var(--text);
-  }
-  td.name a:hover {
-    color: var(--accent);
-  }
-  td.name .tag {
-    color: var(--muted);
-    display: block;
-    font-size: 12px;
-    margin-top: 3px;
-  }
-
-  td.name .planned-name {
-    color: var(--text);
-  }
-
-  td.stat { color: var(--muted); white-space: nowrap; }
-  td.pass { white-space: nowrap; }
-  td.pass.good { color: var(--accent); }
-  td.pass.warn { color: var(--amber); }
-
-  td.date { color: var(--muted); white-space: nowrap; }
-
-  .up a { color: var(--muted); }
-
-  /* ---------- FILES / FOOTER ---------- */
-
-  .files {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  .files a { color: var(--accent); }
-  .files a:hover { text-decoration: underline; }
-
-  .copy-toast {
-    color: var(--accent);
-    font-size: 11px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-  .copy-toast.show {
-    opacity: 1;
-  }
+  /* ---------- FOOTER ---------- */
 
   footer {
     margin-top: 20px;
@@ -274,138 +255,62 @@
     border-top: 1px solid var(--line);
     color: var(--muted);
     font-size: 12px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
   }
-
-  /* ---------- README PANEL ---------- */
-
-  .readme {
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    background: var(--bg-alt);
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(8px);
-    margin-top: 0;
-    transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease, margin-top 0.4s ease;
-  }
-  .readme.open {
-    max-height: 900px;
-    opacity: 1;
-    transform: none;
-    margin-top: 14px;
-  }
-  .readme-bar {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--line);
-    color: var(--muted);
-    font-size: 12px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .readme-bar button {
-    background: none;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 12px;
-  }
-  .readme-bar button:hover { color: var(--accent); }
-  .readme-body {
-    padding: 18px 20px 22px;
-    color: var(--text);
-    font-size: 13px;
-    line-height: 1.7;
-  }
-  .readme-body p { margin: 0 0 12px; }
-  .readme-body .section-h {
-    color: var(--accent);
-    font-weight: 600;
-    margin-top: 18px;
-  }
-  .readme-body .section-h:first-child { margin-top: 0; }
 
   @media (max-width: 600px) {
-    body { font-size: 13.5px; }
+    body { font-size: 13px; }
   }
 </style>
 </head>
 <body>
 
-  <div class="term">
-    <div class="term-bar">
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      <span class="term-title">david.zambrano@qa-automation: ~</span>
-    </div>
-    <div class="term-body" id="termBody"></div>
-  </div>
-
-  <div class="reveal-target" id="indexSection">
-  <p class="path"><a href="#">~</a> / <a href="#">david-zambrano</a></p>
-  <h1>Index of /david-zambrano</h1>
-  <hr>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Tests</th>
-        <th class="date">Allure</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="up">
-        <td class="name" colspan="3"><a href="#">../</a></td>
-      </tr>
-      <tr>
-        <td class="name"><a href="https://github.com/davidzambrano/playwright-playground" target="_blank" rel="noopener">playwright-playground/</a> <span class="tag">[UI · playwright · python · pytest · sonarcloud]</span></td>
-        <td class="stat">188 tests</td>
-        <td class="date"><a href="https://davidzambrano.github.io/playwright-playground/main/" target="_blank" rel="noopener">Report →</a></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="files">
-    <a href="#" onclick="toggleReadme(event)">README.txt</a>
-    <a href="https://linkedin.com/in/davidlzg" target="_blank" rel="noopener">linkedin.txt</a>
-    <a href="https://github.com/davidzambrano" target="_blank" rel="noopener">github.txt</a>
-    <a href="#" onclick="copyEmail(event)" id="contactLink">contact.txt</a>
-    <span class="copy-toast" id="copyToast">copied ✓</span>
-  </div>
-  </div>
-
-  <div class="readme" id="readme">
-    <div class="readme-bar">
-      <span>README.txt</span>
-      <button onclick="toggleReadme(event)">close</button>
-    </div>
-    <div class="readme-body">
-      <p class="section-h">## about</p>
-      <p>QA Automation Engineer based in Barcelona with 4+ years building automation for web apps, REST APIs, and event-driven systems. Focused on test architecture, CI/CD integration, and quality gates that hold up in production, not just passing locally. Experienced working on international teams for US-based clients.</p>
-      <p class="section-h">## key achievements</p>
-      <p>300+ UI, API, and event-driven test cases automated across multiple frameworks. Regression execution time cut by ~70% through scalable test automation. CI/CD pipelines and SonarQube quality gates established for continuous regression testing on business-critical applications.</p>
-      <p class="section-h">## how this works</p>
-      <p>playwright-playground is a live automation framework. Click the directory name for the code repo, or Report for the live Allure report with historical data from the main branch.</p>
-      <p class="section-h">## certifications</p>
-      <p>ISTQB Certified Tester (Foundation Level), May 2024</p>
+  <div class="term-section hero">
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="term-title">david.zambrano@qa-automation: ~</span>
+      </div>
+      <div class="term-body" id="termBody"></div>
     </div>
   </div>
 
-  <footer class="reveal-target" id="pageFooter">
+  <section id="projects" class="reveal-target">
+    <p class="path"><a href="#">~</a> / <a href="#">david-zambrano</a></p>
+    <h2 class="index-title">Index of /david-zambrano</h2>
+    <hr>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Tests</th>
+          <th>Allure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="up">
+          <td class="name" colspan="3"><a href="#">../</a></td>
+        </tr>
+        <tr>
+          <td class="name"><a href="https://github.com/davidzambrano/playwright-playground" target="_blank" rel="noopener">playwright-playground/</a> <span class="tag">[UI · playwright · python · pytest · sonarcloud]</span></td>
+          <td class="stat-cell">206 tests</td>
+          <td class="report-cell"><a href="https://davidzambrano.github.io/playwright-playground/main/" target="_blank" rel="noopener">Report →</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nav-links">
+      <a href="https://linkedin.com/in/davidlzg" target="_blank" rel="noopener">linkedin.txt</a>
+      <a href="https://github.com/davidzambrano" target="_blank" rel="noopener">github.txt</a>
+      <a href="#" onclick="copyEmail(event)" id="contactLink">contact.txt</a>
+      <span class="copy-toast" id="copyToast">copied ✓</span>
+    </div>
+  </section>
+
+  <footer class="reveal-target">
     <span>Last deployed: 2026-08-09 14:32 UTC via GitHub Actions</span>
   </footer>
 
 <script>
-  function toggleReadme(e) {
-    e.preventDefault();
-    document.getElementById('readme').classList.toggle('open');
-  }
-
   function copyEmail(e) {
     e.preventDefault();
     const email = 'davidzambrano.sdet@gmail.com';
@@ -425,7 +330,6 @@
     }
   }
 
-  // Typed terminal hero
   const lines = [
     { type: 'cmd', prompt: '$ ', text: 'whoami' },
     { type: 'out', text: 'David Zambrano, QA Automation Engineer @ SEIDOR Opentrends, Barcelona' },
@@ -434,7 +338,7 @@
     { type: 'cmd', prompt: '$ ', text: 'uptime' },
     { type: 'out-muted', text: '4y 0m, QA automation, no downtime' },
     { type: 'cmd', prompt: '$ ', text: 'cat now.txt' },
-    { type: 'out-muted', text: 'Currently: reducing flaky tests and tightening CI feedback loops' },
+    { type: 'out-muted', text: 'reducing flaky tests and tightening CI feedback loops' },
     { type: 'cmd', prompt: '$ ', text: 'ls -la ./' },
   ];
 
@@ -483,21 +387,20 @@
   }
 
   function revealIndex() {
-    document.getElementById('indexSection').classList.add('visible');
-    document.getElementById('pageFooter').classList.add('visible');
+    document.getElementById('projects').classList.add('visible');
+    document.querySelector('footer').classList.add('visible');
   }
 
-  // Interactive prompt: real commands, plus a sudo/password gag
   let sudoAttempts = 0;
   let inPasswordMode = false;
 
   const responses = {
-    help: 'available: whoami, skills, now, uptime, ls, contact, clear, sudo',
+    help: 'available: whoami, skills, now, uptime, ls, contact, sudo',
     whoami: 'david-zambrano',
     skills: 'Selenium · Playwright · Python · pytest · GitHub Actions · Kafka · Allure',
     now: 'reducing flaky tests and tightening CI feedback loops',
     uptime: '4y 0m, QA automation, no downtime',
-    ls: 'playwright-playground/',
+    ls: 'about.txt  achievements.txt  skills.txt  certifications.txt  projects/',
     contact: 'davidzambrano.sdet@gmail.com, linkedin.com/in/davidlzg',
   };
 
@@ -542,12 +445,7 @@
     }
 
     if (cmd === 'clear') {
-      body.innerHTML = '';
-      if (reduceMotion) {
-        renderStatic();
-      } else {
-        typeLines();
-      }
+      addLine(`<span class="out-muted">bash: clear: permission denied</span>`);
       return;
     }
 
@@ -580,8 +478,34 @@
     });
 
     document.querySelector('.term').addEventListener('click', () => input.focus());
-    input.focus();
   }
+
+  function lockInitialHeight() {
+    const temp = document.createElement('div');
+    temp.className = 'term-body';
+    temp.style.visibility = 'hidden';
+    temp.style.position = 'absolute';
+    temp.style.top = '0';
+    temp.style.left = '0';
+    temp.style.pointerEvents = 'none';
+    temp.style.width = body.offsetWidth + 'px';
+    let html = '';
+    lines.forEach(l => {
+      if (l.type === 'cmd') {
+        html += `<div><span class="prompt">${l.prompt}</span><span class="cmd">${l.text}</span></div>`;
+      } else {
+        html += `<div><span class="${l.type}">${l.text}</span></div>`;
+      }
+    });
+    html += `<div class="live-row"><span class="prompt">$ </span><span class="cursor"></span><input class="term-input" /></div>`;
+    temp.innerHTML = html;
+    body.parentElement.appendChild(temp);
+    const h = temp.offsetHeight;
+    body.parentElement.removeChild(temp);
+    body.style.minHeight = h + 'px';
+  }
+
+  lockInitialHeight();
 
   if (reduceMotion) {
     renderStatic();
