@@ -292,12 +292,12 @@
         </tr>
         <tr>
           <td class="name"><a href="https://github.com/davidzambrano/playwright-playground" target="_blank" rel="noopener">playwright-playground/</a> <span class="tag">[UI · playwright · python · pytest · sonarcloud]</span></td>
-          <td class="stat-cell">206 tests</td>
+          <td class="stat-cell" id="playwrightCount" title="loading live count…">206 tests</td>
           <td class="report-cell"><a href="https://davidzambrano.github.io/playwright-playground/main/" target="_blank" rel="noopener">Report →</a></td>
         </tr>
         <tr>
           <td class="name"><a href="https://github.com/davidzambrano/restful-api-playground" target="_blank" rel="noopener">restful-api-playground/</a> <span class="tag">[UI · playwright · python · pytest · sonarcloud]</span></td>
-          <td class="stat-cell">43 tests</td>
+          <td class="stat-cell" id="apiCount" title="loading live count…">43 tests</td>
           <td class="report-cell"><a href="https://davidzambrano.github.io/restful-api-playground/main/" target="_blank" rel="noopener">Report →</a></td>
         </tr>
       </tbody>
@@ -517,6 +517,46 @@
   } else {
     typeLines();
   }
+
+  // ---------- LIVE ALLURE TEST COUNTS ----------
+  // Crawls the Allure `widgets/summary.json` from each deployed report and
+  // replaces the hardcoded "NNN tests" cells. Same-origin
+  // (davidzambrano.github.io) so plain fetch works — no CORS proxy needed.
+  // Falls back silently to the hardcoded numbers if a report is missing/404.
+  async function updateTestCount(elId, summaryUrl) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    try {
+      const res = await fetch(summaryUrl, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      const s = data.statistic || {};
+      const total = s.total;
+      if (typeof total !== 'number') throw new Error('no total');
+      el.textContent = `${total} tests`;
+      const parts = [];
+      if (typeof s.passed === 'number') parts.push(`${s.passed} passed`);
+      if (typeof s.failed === 'number') parts.push(`${s.failed} failed`);
+      if (typeof s.broken === 'number') parts.push(`${s.broken} broken`);
+      if (typeof s.skipped === 'number') parts.push(`${s.skipped} skipped`);
+      el.title = parts.length
+        ? `Live from Allure report (${parts.join(', ')})`
+        : 'Live from Allure report';
+    } catch (err) {
+      // Keep the hardcoded fallback value already in the HTML.
+      el.title = 'Live count unavailable — showing last known value';
+      console.warn(`[counts] could not load ${summaryUrl}:`, err);
+    }
+  }
+
+  updateTestCount(
+    'playwrightCount',
+    'https://davidzambrano.github.io/playwright-playground/main/widgets/summary.json'
+  );
+  updateTestCount(
+    'apiCount',
+    'https://davidzambrano.github.io/restful-api-playground/main/widgets/summary.json'
+  );
 </script>
 
 </body>
