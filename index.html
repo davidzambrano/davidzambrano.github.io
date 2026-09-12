@@ -335,17 +335,42 @@
     }
   }
 
+  const QA_START = new Date(2022, 7, 1); // Aug 2022 — QA automation start
+  function formatQaUptime(now = new Date()) {
+    let y = now.getFullYear() - QA_START.getFullYear();
+    let m = now.getMonth() - QA_START.getMonth();
+    let d = now.getDate() - QA_START.getDate();
+    if (d < 0) {
+      m -= 1;
+      d += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+    }
+    if (m < 0) {
+      y -= 1;
+      m += 12;
+    }
+    return `${y}y ${m}m ${d}d`;
+  }
+  function qaUptimeString(now = new Date()) {
+    return `${formatQaUptime(now)}, QA automation, no downtime`;
+  }
+
   const lines = [
     { type: 'cmd', prompt: '$ ', text: 'whoami' },
     { type: 'out', text: 'David Zambrano, QA Automation Engineer @ SEIDOR Opentrends, Barcelona' },
     { type: 'cmd', prompt: '$ ', text: 'cat skills.txt' },
     { type: 'out', text: 'Selenium · Playwright · Python · pytest · GitHub Actions · Kafka · Allure' },
     { type: 'cmd', prompt: '$ ', text: 'uptime' },
-    { type: 'out-muted', text: '4y 0m, QA automation, no downtime' },
+    { type: 'out-muted', text: qaUptimeString(), liveUptime: true },
     { type: 'cmd', prompt: '$ ', text: 'cat now.txt' },
     { type: 'out-muted', text: 'reducing flaky tests and tightening CI feedback loops' },
     { type: 'cmd', prompt: '$ ', text: 'ls -la ./' },
   ];
+
+  function refreshUptimeElements() {
+    const str = qaUptimeString();
+    document.querySelectorAll('[data-uptime]').forEach(el => { el.textContent = str; });
+    responses.uptime = str;
+  }
 
   const body = document.getElementById('termBody');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -356,6 +381,8 @@
       const div = document.createElement('div');
       if (l.type === 'cmd') {
         div.innerHTML = `<span class="prompt">${l.prompt}</span><span class="cmd">${l.text}</span>`;
+      } else if (l.liveUptime) {
+        div.innerHTML = `<span class="${l.type}" data-uptime>${l.text}</span>`;
       } else {
         div.innerHTML = `<span class="${l.type}">${l.text}</span>`;
       }
@@ -382,6 +409,9 @@
           await new Promise(r => setTimeout(r, 22));
         }
         await new Promise(r => setTimeout(r, 120));
+      } else if (l.liveUptime) {
+        div.innerHTML = `<span class="${l.type}" data-uptime>${l.text}</span>`;
+        await new Promise(r => setTimeout(r, 180));
       } else {
         div.innerHTML = `<span class="${l.type}">${l.text}</span>`;
         await new Promise(r => setTimeout(r, 180));
@@ -404,10 +434,15 @@
     whoami: 'david-zambrano',
     skills: 'Selenium · Playwright · Python · pytest · GitHub Actions · Kafka · Allure',
     now: 'reducing flaky tests and tightening CI feedback loops',
-    uptime: '4y 0m, QA automation, no downtime',
+    uptime: qaUptimeString(),
     ls: 'about.txt  achievements.txt  skills.txt  certifications.txt  projects/',
     contact: 'davidzambrano.sdet@gmail.com, linkedin.com/in/davidlzg',
   };
+
+  // Ticks the on-screen `uptime` output once a day (midnight rollover).
+  // Also keeps `uptime` command responses fresh.
+  refreshUptimeElements();
+  setInterval(refreshUptimeElements, 60 * 60 * 1000);
 
   function addLine(html) {
     const div = document.createElement('div');
